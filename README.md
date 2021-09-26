@@ -1,2 +1,2 @@
 # e-commerce-site
-for my intro to swe class
+project for my intro to swe class

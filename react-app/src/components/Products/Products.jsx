@@ -5,19 +5,19 @@ import Product from "./Product/Product";
 const products = [
   {
     id: 1,
-    name: "Shoes",
-    description: "Running shoes.",
-    price: "$5",
+    name: "Adidas Bravadas",
+    description: "Men's sport shoes",
+    price: "$48",
     image:
       "https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy,c_fill,g_auto/e725107a3d7041389f94ab220123fbcb_9366/Bravada_Shoes_Black_FV8085_01_standard.jpg",
   },
   {
     id: 2,
-    name: "Macbook",
-    description: "Apple Macbook.",
-    price: "$10",
+    name: "Adidas Superstars",
+    description: "Women's basketball shoes",
+    price: "$85",
     image:
-      "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-gold-select-201810?wid=904&hei=840&fmt=jpeg&qlt=80&.v=1603332211000",
+      "https://assets.adidas.com/images/w_600,f_auto,q_auto/4e894c2b76dd4c8e9013aafc016047af_9366/Superstar_Shoes_White_FV3284_01_standard.jpg",
   },
 ];
 

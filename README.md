@@ -1,5 +1,5 @@
 # Street Kicks WebApp
-A project for my Intro to SWE class where my team is building an E-Commerce Webapp.
+A project for my Intro to SWE class where my team is building an shoe store webapp.
 
 # Installation
 a) Clone the repository via SSH ``git@github.com:suzm10/e-commerce-site.git``

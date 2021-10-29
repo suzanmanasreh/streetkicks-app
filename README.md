@@ -13,4 +13,7 @@ d) Run the project ``npm run dev`` or ``npm run``
 =======
 # e-commerce-site
 for my intro to swe class
+<<<<<<< HEAD
+>>>>>>> parent of 1af1153d (Update README.md)
+=======
 >>>>>>> parent of 1af1153d (Update README.md)

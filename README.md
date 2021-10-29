@@ -1,2 +1,3 @@
 # e-commerce-site
-project for my intro to swe class
+
+trying to develop an e-commerce site using nextjs in this branch here

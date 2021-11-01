@@ -15,9 +15,11 @@ import {
   Box,
   Link,
 } from "@material-ui/core";
+import useStyles from "./styles";
 
 export default function Home(props) {
   const { products } = props;
+  const classes = useStyles();
   return (
     <Layout title="Home" commercePublicKey={props.commercePublicKey}>
       {products.length === 0 && <Alert>No product found</Alert>}
@@ -25,10 +27,11 @@ export default function Home(props) {
         {products.map((product) => (
           <Grid key={product.id} item md={3}>
             <Slide direction="up" in={true}>
-              <Card>
+              <Card className={classes.root}>
                 <Link href={`/products/${product.permalink}`}>
                   <CardActionArea>
                     <CardMedia
+                      className={classes.media}
                       component="img"
                       alt={product.name}
                       image={product.image.url}

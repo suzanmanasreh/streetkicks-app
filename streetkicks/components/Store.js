@@ -4,6 +4,11 @@ export const Store = createContext();
 
 function reducer(state, action) {
   switch (action.type) {
+    case CART_RETRIEVE_REQUEST:
+      return {
+        ...state,
+        cart: { loading: true },
+      };
     default:
       return state;
   }

@@ -30,7 +30,21 @@ export default function Product(props) {
   const { cart } = state;
 
   const addToCartHandler = async () => {
-    console.log("TODO: implement");
+    const commerce = getCommerce(props.commercePublicKey);
+    const lineItem = cart.data.line_items.find(
+      (x) => x.product_id === product.id
+    );
+    if (lineItem) {
+      const cartData = await commerce.cart.update(lineItem.id, {
+        quantity: quantity,
+      });
+      dispatch({ type: CART_RETRIEVE_SUCCESS, payload: cartData.cart });
+      Router.push("/cart");
+    } else {
+      const cartData = await commerce.cart.add(product.id, quantity);
+      dispatch({ type: CART_RETRIEVE_SUCCESS, payload: cartData.cart });
+      Router.push("/cart");
+    }
   };
 
   return (
@@ -82,7 +96,8 @@ export default function Product(props) {
                       Status
                     </Grid>
                     <Grid item xs={6}>
-                      {product.quantity > 0 ? (
+                      {console.log("quantity:" + product.inventory.available)}
+                      {product.inventory.available > 0 ? (
                         <Alert icon={false} severity="success">
                           In Stock
                         </Alert>
@@ -94,7 +109,7 @@ export default function Product(props) {
                     </Grid>
                   </Grid>
                 </ListItem>
-                {product.quantity > 0 && (
+                {product.inventory.available > 0 && (
                   <>
                     <ListItem>
                       <Grid container justify="flex-end">
@@ -109,11 +124,13 @@ export default function Product(props) {
                             onChange={(e) => setQuantity(e.target.value)}
                             value={quantity}
                           >
-                            {[...Array(product.quantity).keys()].map((x) => (
-                              <MenuItem key={x + 1} value={x + 1}>
-                                {x + 1}
-                              </MenuItem>
-                            ))}
+                            {[...Array(product.inventory.available).keys()].map(
+                              (x) => (
+                                <MenuItem key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </MenuItem>
+                              )
+                            )}
                           </Select>
                         </Grid>
                       </Grid>

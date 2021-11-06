@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Commerce from "@chec/commerce.js";
 
 let commerce = null;

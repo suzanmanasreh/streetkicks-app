@@ -136,6 +136,16 @@ export default function Product(props) {
                       </Grid>
                     </ListItem>
                     <ListItem>
+                      <Grid container justify="flex-end">
+                        <Grid item xs={6}>
+                          Size
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Select></Select>
+                        </Grid>
+                      </Grid>
+                    </ListItem>
+                    <ListItem>
                       <Button
                         type="button"
                         fullWidth

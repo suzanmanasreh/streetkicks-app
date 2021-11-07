@@ -18,11 +18,12 @@ import { useStyles } from "../../utils/styles";
 import { Store } from "../../components/Store";
 import { CART_RETRIEVE_SUCCESS } from "../../utils/constants";
 import Router from "next/router";
-import NextLink from "next/link";
+import React from "react";
 
 export default function Product(props) {
   const { product } = props;
   const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState(6);
 
   const classes = useStyles();
 
@@ -123,6 +124,30 @@ export default function Product(props) {
                             fullWidth
                             onChange={(e) => setQuantity(e.target.value)}
                             value={quantity}
+                          >
+                            {[...Array(product.inventory.available).keys()].map(
+                              (x) => (
+                                <MenuItem key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </MenuItem>
+                              )
+                            )}
+                          </Select>
+                        </Grid>
+                      </Grid>
+                    </ListItem>
+                    <ListItem>
+                      <Grid container justify="flex-end">
+                        <Grid item xs={6}>
+                          Size
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Select
+                            labelId="size-label"
+                            id="size"
+                            fullWidth
+                            onChange={(e) => setSize(e.target.value)}
+                            value={size}
                           >
                             {[...Array(product.inventory.available).keys()].map(
                               (x) => (

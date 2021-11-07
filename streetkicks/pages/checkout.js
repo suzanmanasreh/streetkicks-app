@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import {
   Box,
   Button,
@@ -12,16 +11,9 @@ import {
   ListItem,
   MenuItem,
   Select,
-  Slide,
   Step,
   StepLabel,
   Stepper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -32,7 +24,6 @@ import getCommerce from "../utils/commerce";
 import { useStyles } from "../utils/styles";
 import { useContext } from "react";
 import { Store } from "../components/Store";
-import { CART_RETRIEVE_SUCCESS } from "../utils/constants";
 import Router from "next/router";
 
 const dev = process.env.NODE_ENV === "development";

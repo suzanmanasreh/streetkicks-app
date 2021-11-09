@@ -100,7 +100,7 @@ export default function Layout({
             <Typography variant="body2" color="textSecondary" align="center">
               {"© "}
               StreetKicks 2021 | Sample Project By{" "}
-              <a href="www.google.com">
+              <a href="https://github.com/suzm10">
                 <u>Suzan</u>
               </a>
             </Typography>

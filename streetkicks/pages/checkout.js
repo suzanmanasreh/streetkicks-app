@@ -24,8 +24,10 @@ import getCommerce from "../utils/commerce";
 import { useStyles } from "../utils/styles";
 import { useContext } from "react";
 import { Store } from "../components/Store";
+import { CART_RETRIEVE_SUCCESS, ORDER_SET } from "../utils/constants";
 import Router from "next/router";
 
+// eslint-disable-next-line no-undef
 const dev = process.env.NODE_ENV === "development";
 function Checkout(props) {
   const classes = useStyles();
@@ -50,6 +52,7 @@ function Checkout(props) {
       Router.push("/cart");
     }
   };
+
   // Customer details
   const [firstName, setFirstName] = useState(dev ? "Jane" : "");
   const [lastName, setLastName] = useState(dev ? "Doe" : "");
@@ -69,7 +72,6 @@ function Checkout(props) {
   );
   const [shippingCountry, setShippingCountry] = useState(dev ? "GB" : "");
   const [shippingOption, setShippingOption] = useState({});
-
   // Payment details
   const [cardNum, setCardNum] = useState(dev ? "4242 4242 4242 4242" : "");
   const [expMonth, setExpMonth] = useState(dev ? "11" : "");
@@ -78,7 +80,6 @@ function Checkout(props) {
   const [billingPostalZipcode, setBillingPostalZipcode] = useState(
     dev ? "90089" : ""
   );
-
   // Shipping and fulfillment data
   const [shippingCountries, setShippingCountries] = useState({});
   const [shippingSubdivisions, setShippingSubdivisions] = useState({});
@@ -96,8 +97,62 @@ function Checkout(props) {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
     if (activeStep === steps.length - 1) {
-      // handleCaptureCheckout();
+      handleCaptureCheckout();
     }
+  };
+  const handleCaptureCheckout = async () => {
+    const orderData = {
+      line_items: checkoutToken.live.line_items,
+      customer: {
+        firstname: firstName,
+        lastname: lastName,
+        email: email,
+      },
+      shipping: {
+        name: shippingName,
+        street: shippingStreet,
+        town_city: shippingCity,
+        county_state: shippingStateProvince,
+        postal_zip_code: shippingPostalZipCode,
+        country: shippingCountry,
+      },
+      fulfillment: {
+        shipping_method: shippingOption,
+      },
+      payment: {
+        gateway: "test_gateway",
+        card: {
+          number: cardNum,
+          expiry_month: expMonth,
+          expiry_year: expYear,
+          cvc: cvv,
+          postal_zip_code: billingPostalZipcode,
+        },
+      },
+    };
+    const commerce = getCommerce(props.commercePublicKey);
+    try {
+      const order = await commerce.checkout.capture(
+        checkoutToken.id,
+        orderData
+      );
+      dispatch({ type: ORDER_SET, payload: order });
+      localStorage.setItem("order_receipt", JSON.stringify(order));
+      await refreshCart();
+      Router.push("/confirmation");
+    } catch (err) {
+      const errList = [err.data.error.message];
+      const errs = err.data.error.errors;
+      for (const index in errs) {
+        errList.push(`${index}: ${errs[index]}`);
+      }
+      setErrors(errList);
+    }
+  };
+  const refreshCart = async () => {
+    const commerce = getCommerce(props.commercePublicKey);
+    const newCart = await commerce.cart.refresh();
+    dispatch({ type: CART_RETRIEVE_SUCCESS, payload: newCart });
   };
 
   const [errors, setErrors] = useState([]);
@@ -106,6 +161,11 @@ function Checkout(props) {
   const handleBack = () => {
     setErrors([]);
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+  const handleShippingCountryChange = (e) => {
+    const currentValue = e.target.value;
+    setShippingCountry(e.target.value);
+    fetchSubdivisions(currentValue);
   };
 
   const fetchShippingCountries = async (checkoutTokenId) => {
@@ -116,12 +176,6 @@ function Checkout(props) {
     setShippingCountries(countries.countries);
   };
 
-  const handleShippingCountryChange = (e) => {
-    const currentValue = e.target.value;
-    setShippingCountry(e.target.value);
-    fetchSubdivisions(currentValue);
-  };
-
   const fetchSubdivisions = async (countryCode) => {
     const commerce = getCommerce(props.commercePublicKey);
     const subdivisions = await commerce.services.localeListSubdivisions(
@@ -129,19 +183,16 @@ function Checkout(props) {
     );
     setShippingSubdivisions(subdivisions.subdivisions);
   };
-
   const handleSubdivisionChange = (e) => {
     const currentValue = e.target.value;
     setShippingStateProvince(currentValue);
     fetchShippingOptions(checkoutToken.id, shippingCountry, currentValue);
   };
-
   const handleShippingOptionChange = (e) => {
     const currentValue = e.target.value;
     setShippingOption(currentValue);
     console.log(currentValue);
   };
-
   const fetchShippingOptions = async (
     checkoutTokenId,
     country,
@@ -424,7 +475,7 @@ function Checkout(props) {
                   ) : (
                     <Box>
                       {getStepContent(activeStep)}
-                      <Box>
+                      <Box className={classes.mt1}>
                         <Button
                           disabled={activeStep === 0}
                           onClick={handleBack}

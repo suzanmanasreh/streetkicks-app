@@ -1,6 +1,6 @@
 # Street Kicks WebApp
 
-A project for my Intro to SWE class where my team is building an shoe store webapp.
+A project for my Intro to SWE class where my team is building an shoe store webapp. Deployed [here](https://streetkicks.vercel.app).
 
 # Installation
 

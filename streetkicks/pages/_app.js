@@ -3,7 +3,7 @@ import { StoreProvider } from "../components/Store";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import Router from "next/router";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -30,6 +30,7 @@ export default MyApp;
 MyApp.getInitialProps = async () => {
   return {
     pageProps: {
+      // eslint-disable-next-line no-undef
       commercePublicKey: process.env.COMMERCE_PUBLIC_KEY,
     },
   };

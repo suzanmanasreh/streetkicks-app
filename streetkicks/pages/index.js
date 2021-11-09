@@ -1,7 +1,4 @@
-import Head from "next/head";
 import Alert from "@material-ui/lab";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import getCommerce from "../utils/commerce";
 import Layout from "../components/Layout";
 import {
@@ -16,6 +13,7 @@ import {
   Link,
 } from "@material-ui/core";
 import useStyles from "./styles";
+import React from "react";
 
 export default function Home(props) {
   const { products } = props;

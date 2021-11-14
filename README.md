@@ -6,7 +6,7 @@ A project for my Intro to SWE class where my team is building an shoe store weba
 
 a) Clone the repository via SSH `git@github.com:suzm10/e-commerce-site.git`
 
-b) CD into the root directory `cd react-app`
+b) CD into the root directory `cd streetkicks`
 
 c) Install node modules in root directory `npm install`
 

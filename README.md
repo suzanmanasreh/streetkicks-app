@@ -2,7 +2,7 @@
 
 A project for my Intro to SWE class where my team is building an shoe store webapp.
 
-View the project here: streetkicks.vercel.app
+View the project here: https://streetkicks.vercel.app/
 
 # Installation
 

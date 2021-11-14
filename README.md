@@ -2,6 +2,8 @@
 
 A project for my Intro to SWE class where my team is building an shoe store webapp.
 
+View the project here: streetkicks.vercel.app
+
 # Installation
 
 a) Clone the repository via SSH `git@github.com:suzm10/e-commerce-site.git`

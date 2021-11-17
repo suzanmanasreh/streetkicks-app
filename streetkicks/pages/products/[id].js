@@ -19,6 +19,11 @@ import { Store } from "../../components/Store";
 import { CART_RETRIEVE_SUCCESS } from "../../utils/constants";
 import Router from "next/router";
 import React from "react";
+import Commerce from "@chec/commerce.js";
+// eslint-disable-next-line no-unused-vars
+const commerce = new Commerce(
+  "pk_test_348999ea59669f2439d4280826f3c3ad2ba9ce725cec1"
+);
 
 export default function Product(props) {
   const { product } = props;
@@ -97,7 +102,15 @@ export default function Product(props) {
                       Status
                     </Grid>
                     <Grid item xs={6}>
-                      {console.log("quantity:" + product.inventory.available)}
+                      {/* {commerce.products
+                        .getVariants(product, {
+                          limit: 150,
+                          page: 3,
+                        })
+                        .then((variants) => console.log(variants.data))} */}
+                      {/* {commerce.products
+                        .list()
+                        .then((product) => console.log(product))} */}
                       {product.inventory.available > 0 ? (
                         <Alert icon={false} severity="success">
                           In Stock

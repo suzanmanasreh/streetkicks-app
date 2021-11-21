@@ -99,10 +99,12 @@ export default function Layout({
           <Box mt={5}>
             <Typography variant="body2" color="textSecondary" align="center">
               {"© "}
-              StreetKicks 2021 | Sample Project By{" "}
+              StreetKicks 2021 | Report bugs and request features:
+              support@streetkickswebapp.com
+              {/* {" "}
               <a href="https://github.com/suzm10">
                 <u>Suzan</u>
-              </a>
+              </a> */}
             </Typography>
           </Box>
         </Container>
